@@ -1,9 +1,12 @@
 <?php
 use App\Controller\CoreController;
 
-include_once 'CoreController.php';
 class UserController extends CoreController
 {
+    public function cart()
+    {
+        $this->loadView('user_cart');
+    }
 
     public function signup()
     {

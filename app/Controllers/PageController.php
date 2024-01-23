@@ -1,5 +1,6 @@
 <?php
 use App\Controller\CoreController;
+
 include_once 'CoreController.php';
 class PageController extends CoreController
 {
