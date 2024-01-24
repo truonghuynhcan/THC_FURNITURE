@@ -60,7 +60,8 @@
                             <p class="card-text">Tổng đơn</p>
                             <p class="card-text">300k</p>
                         </div>
-                        <a href="checkout.html" class="card-link btn btn-primary container-fluid">Thanh toán</a>
+                        <a href="<?= APPURL ?>product/checkout" class="card-link btn btn-primary container-fluid">Thanh
+                            toán</a>
                     </div>
                 </div>
             </div>

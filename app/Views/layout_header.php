@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="<?= APPURL ?>css/a_style.css">
 
     <link rel="stylesheet" href="<?= APPURL ?>fontawesome-free-6.5.1-web/css/all.min.css">
+    <!-- thêm jquery chỉnh input:number -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 
     <!-- <script src="https://kit.fontawesome.com/0e14ebdea1.js" crossorigin="anonymous"></script> -->
 </head>
