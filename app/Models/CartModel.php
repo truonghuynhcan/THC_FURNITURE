@@ -15,7 +15,8 @@ class CartModel extends CoreModel
         sp.TenSanPham AS TenSP,
         sp.DonGia,
         ctdh.SoLuong,
-        sp.DonGia * ctdh.SoLuong AS ThanhTien
+        sp.DonGia * ctdh.SoLuong AS ThanhTien,
+        dh.Id as MaDH
     FROM 
         donhang dh
     JOIN 

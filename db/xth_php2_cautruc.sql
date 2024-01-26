@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 22, 2024 lúc 07:08 AM
+-- Thời gian đã tạo: Th1 26, 2024 lúc 12:43 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -24,6 +24,18 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Cấu trúc bảng cho bảng `anhsp`
+--
+
+CREATE TABLE `anhsp` (
+  `Id` int(5) NOT NULL,
+  `IdSP` int(5) NOT NULL,
+  `url` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Cấu trúc bảng cho bảng `chitietdonhang`
 --
 
@@ -32,6 +44,17 @@ CREATE TABLE `chitietdonhang` (
   `MaSP` int(5) NOT NULL,
   `SoLuong` int(11) NOT NULL DEFAULT 1,
   `DonGia` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `danhmuc`
+--
+
+CREATE TABLE `danhmuc` (
+  `Id` int(5) NOT NULL,
+  `Ten` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -74,10 +97,20 @@ CREATE TABLE `magiamgia` (
 
 CREATE TABLE `sanpham` (
   `Id` int(5) NOT NULL,
+  `IdDM` int(5) NOT NULL,
   `TenSanPham` varchar(255) NOT NULL,
   `DonGia` int(11) NOT NULL,
+  `GiamGia` int(3) DEFAULT NULL COMMENT 'giá trị %',
   `Anh` varchar(255) NOT NULL,
-  `solong` int(5) NOT NULL
+  `SoLuong` int(5) NOT NULL,
+  `ThuongHieu` varchar(255) DEFAULT NULL,
+  `KichThuoc` varchar(255) DEFAULT NULL,
+  `ChatLieu` varchar(255) NOT NULL,
+  `MauSac` varchar(255) NOT NULL,
+  `MoTa` text DEFAULT NULL,
+  `MoTaCT` longtext DEFAULT NULL,
+  `NgayNhap` date DEFAULT current_timestamp(),
+  `TrangThai` int(1) DEFAULT 1 COMMENT 'ẩn(0), hiện(1)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -93,7 +126,7 @@ CREATE TABLE `taikhoan` (
   `DiaChi` varchar(255) DEFAULT NULL,
   `Email` varchar(255) NOT NULL,
   `MatKhau` varchar(50) NOT NULL,
-  `Quyen` int(1) NOT NULL DEFAULT 0
+  `Quyen` int(1) NOT NULL DEFAULT 0 COMMENT 'site(0), admin(1)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -101,11 +134,24 @@ CREATE TABLE `taikhoan` (
 --
 
 --
+-- Chỉ mục cho bảng `anhsp`
+--
+ALTER TABLE `anhsp`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `fk_anhsp_sp` (`IdSP`);
+
+--
 -- Chỉ mục cho bảng `chitietdonhang`
 --
 ALTER TABLE `chitietdonhang`
   ADD PRIMARY KEY (`MaDH`,`MaSP`),
   ADD KEY `fk_ctdh_sp` (`MaSP`);
+
+--
+-- Chỉ mục cho bảng `danhmuc`
+--
+ALTER TABLE `danhmuc`
+  ADD PRIMARY KEY (`Id`);
 
 --
 -- Chỉ mục cho bảng `donhang`
@@ -125,7 +171,8 @@ ALTER TABLE `magiamgia`
 -- Chỉ mục cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
-  ADD PRIMARY KEY (`Id`);
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `fk_sp_dm` (`IdDM`);
 
 --
 -- Chỉ mục cho bảng `taikhoan`
@@ -136,6 +183,18 @@ ALTER TABLE `taikhoan`
 --
 -- AUTO_INCREMENT cho các bảng đã đổ
 --
+
+--
+-- AUTO_INCREMENT cho bảng `anhsp`
+--
+ALTER TABLE `anhsp`
+  MODIFY `Id` int(5) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `danhmuc`
+--
+ALTER TABLE `danhmuc`
+  MODIFY `Id` int(5) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `donhang`
@@ -160,6 +219,12 @@ ALTER TABLE `taikhoan`
 --
 
 --
+-- Các ràng buộc cho bảng `anhsp`
+--
+ALTER TABLE `anhsp`
+  ADD CONSTRAINT `fk_anhsp_sp` FOREIGN KEY (`IdSP`) REFERENCES `sanpham` (`Id`) ON UPDATE CASCADE;
+
+--
 -- Các ràng buộc cho bảng `chitietdonhang`
 --
 ALTER TABLE `chitietdonhang`
@@ -172,6 +237,12 @@ ALTER TABLE `chitietdonhang`
 ALTER TABLE `donhang`
   ADD CONSTRAINT `fk_donhang_magiamgia` FOREIGN KEY (`IdGG`) REFERENCES `magiamgia` (`MaGG`),
   ADD CONSTRAINT `fk_donhang_taikhoan` FOREIGN KEY (`MaTK`) REFERENCES `taikhoan` (`Id`) ON UPDATE CASCADE;
+
+--
+-- Các ràng buộc cho bảng `sanpham`
+--
+ALTER TABLE `sanpham`
+  ADD CONSTRAINT `fk_sp_dm` FOREIGN KEY (`IdDM`) REFERENCES `danhmuc` (`Id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -79,6 +79,15 @@
                                         <li><a class="dropdown-item" href="<?= APPURL ?>user/login">Đăng nhập</a></li>
                                         <li><a class="dropdown-item" href="<?= APPURL ?>user/signup">Đăng ký</a></li>
                                     </ul>
+                                <?php elseif($_SESSION['user']['Quyen']===1): ?>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a class="dropdown-item" href="<?= APPURL ?>admin/dashboard">Admin</a></li>
+                                        <li><a class="dropdown-item" href="<?= APPURL ?>user/info">Tài khoản</a></li>
+                                        <li><a class="dropdown-item" href="<?= APPURL ?>user/login">Quản lý đơn hàng</a>
+                                        </li>
+                                        <li class="border-top mt-2 py-1 opacity-75"><a class="dropdown-item"
+                                                href="<?= APPURL ?>user/logout">Đăng xuất</a></li>
+                                    </ul>
                                 <?php else: ?>
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li><a class="dropdown-item" href="<?= APPURL ?>user/info">Tài khoản</a></li>

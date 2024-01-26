@@ -3,9 +3,11 @@ use App\Controller\CoreController;
 
 class ProductController extends CoreController
 {
-    public function detail()
+    public function detail($IdPro)
     {
-        $this->loadView('product_detail');
+        $oder = $this->loadModel("product");
+        $data['pro'] = $oder->getOneProductById($IdPro);
+        $this->loadView('product_detail', $data);
     }
     public function checkout()
     {

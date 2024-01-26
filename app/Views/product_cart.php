@@ -29,24 +29,24 @@
                     </thead>
                     <tbody>
                         <?php foreach ($cart as $sp): ?>
-                        <tr>
-                            <td><img src="<?= APPURL ?>public/upload/products/<?= $sp['AnhSP'] ?>" alt=""
-                                    style="height: 60px;"></td>
-                            <td>
-                                <?= $sp['TenSP'] ?>
-                            </td>
-                            <td class="text-primary text-end">
-                                <?= number_format($sp['DonGia'], 0, ',', '.') ?> ₫
-                            </td>
-                            <td class="text-center">
-                                <?= $sp['SoLuong'] ?>
-                            </td>
-                            <td class="text-primary text-end">
-                                <?= number_format($sp['ThanhTien'], 0, ',', '.') ?> ₫
-                            </td>
-                            <td class="text-center"><a href="<?= APPURL ?>product/remoteProduct/<?= $sp['Id'] ?>"
-                                    class="btn btn-primary">Xóa</a></td>
-                        </tr>
+                            <tr>
+                                <td><img src="<?= APPURL ?>public/upload/products/<?= $sp['AnhSP'] ?>" alt=""
+                                        style="height: 60px;"></td>
+                                <td>
+                                    <?= $sp['TenSP'] ?>
+                                </td>
+                                <td class="text-primary text-end">
+                                    <?= number_format($sp['DonGia'], 0, ',', '.') ?> ₫
+                                </td>
+                                <td class="text-center">
+                                    <?= $sp['SoLuong'] ?>
+                                </td>
+                                <td class="text-primary text-end">
+                                    <?= number_format($sp['ThanhTien'], 0, ',', '.') ?> ₫
+                                </td>
+                                <td class="text-center"><a href="<?= APPURL ?>product/remoteProduct/<?= $sp['Id'] ?>"
+                                        class="btn btn-primary">Xóa</a></td>
+                            </tr>
                         <?php endforeach; ?>
                     </tbody>
                 </table>
@@ -58,7 +58,19 @@
                         <h6 class="card-subtitle mb-2 text-body-secondary">(3 sản phẩm)</h6>
                         <div class="d-flex justify-content-between">
                             <p class="card-text">Tổng đơn</p>
-                            <p class="card-text">300k</p>
+                            <p class="card-text">300.000 VND</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <p class="card-text">Giảm giá</p>
+                            <p class="card-text">- 19.000 VND</p>
+                        </div>
+                        <div class="d-flex mb-3 justify-content-between">
+                            <form action="<?= APPURL ?>order/addVoucher" method="post">
+                                <label class="card-text" for="voucher">Mã Giảm Giá</label>
+                                <input class="form-control" type="text" name="voucher" id="voucher">
+                                <input class="form-control" hidden type="text" name="MaDH" value="<?= $sp['MaDH'] ?>">
+                                <button type="submit" name="addVoucher" class="btn border-1">Áp dụng</button>
+                            </form>
                         </div>
                         <a href="<?= APPURL ?>product/checkout" class="card-link btn btn-primary container-fluid">Thanh
                             toán</a>
@@ -69,3 +81,4 @@
     </div>
 </section>
 <!-- cart end -->
+<button class="btn-primary"></button>

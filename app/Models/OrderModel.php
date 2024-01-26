@@ -1,7 +1,10 @@
 <?php
 class OrderModel extends CoreModel
 {
-
+    public function isValidVoucher($voucher)
+    {
+        return $this->db->pdo_query_one("SELECT * FROM magiamgia WHERE MaGG =?", $voucher);
+    }
     public function getProductInCart()
     {
         return $this->db->pdo_query("SELECT * FROM chitietdonhang ctdh
@@ -29,7 +32,6 @@ class OrderModel extends CoreModel
             // KO sp trong cart
             #thêm sp vào
             return $this->db->pdo_execute("INSERT INTO chitietdonhang (`MaDH`, `MaSP`) VALUES(?,?)", $MaDH, $MaSP);
-
         }
     }
 

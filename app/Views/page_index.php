@@ -101,23 +101,23 @@
         </div>
         <div class="row">
             <?php foreach ($dsSP as $sp): ?>
-            <div class="col-12 col-sm-6 col-lg-3 p-2 mb-2">
-                <div class="card position-relative" style="width: 100%;">
-                    <div class="position-absolute top-0 start-0 bg-sale">15%</div>
-                    <img src="<?= APPURL ?>public/upload/products/<?= $sp['Anh'] ?>" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <a href="<?= APPURL ?>product/detail" class="card-title h5 text-decoration-none overflow-auto"
-                            style="height: 3.5em;">
-                            <?= $sp['TenSanPham'] ?>
-                        </a>
-                        <p class="card-text"><strong>
-                                <?= number_format($sp['DonGia'], 0, ',', '.') ?>₫
-                            </strong> <span class="text-secondary text-decoration-line-through">730.000₫</span></p>
-                        <a href="<?= APPURL ?>product/addToCart/<?= $sp['Id'] ?>"
-                            class="btn btn-primary container-fluid">Thêm vào giỏ</a>
+                <div class="col-12 col-sm-6 col-lg-3 p-2 mb-2">
+                    <div class="card position-relative" style="width: 100%;">
+                        <div class="position-absolute top-0 start-0 bg-sale fw-medium <?= $sp['GiamGia']>0?'':'d-none' ?>"><?= $sp['GiamGia'] ?>%</div>
+                        <img src="<?= APPURL ?>public/upload/products/<?= $sp['Anh'] ?>" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <a href="<?= APPURL ?>product/detail/<?= $sp['Id'] ?>"
+                                class="card-title h5 text-decoration-none overflow-auto" style="height: 3.5em;">
+                                <?= $sp['TenSanPham'] ?>
+                            </a>
+                            <p class="card-text"><strong>
+                            <?= $sp['GiamGia']>0?number_format($sp['DonGia']*(1-$sp['GiamGia']/100), 0, ',', '.'):number_format($sp['DonGia'], 0, ',', '.') ?> ₫
+                                </strong> <span class="text-secondary text-decoration-line-through fw-normal <?= $sp['GiamGia']>0?'':'d-none' ?>"><?= number_format($sp['DonGia'], 0, ',', '.')?> ₫</span></p>
+                            <a href="<?= APPURL ?>product/addToCart/<?= $sp['Id'] ?>"
+                                class="btn btn-primary container-fluid">Thêm vào giỏ</a>
+                        </div>
                     </div>
                 </div>
-            </div>
             <?php endforeach; ?>
 
             <!-- <div class="col-12 col-sm-6 col-lg-3 p-2 mb-2">
