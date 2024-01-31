@@ -1,5 +1,5 @@
 <?php
-use App\Controller\CoreController;
+use App\Controllers\CoreController;
 
 class ProductController extends CoreController
 {
@@ -103,5 +103,16 @@ class ProductController extends CoreController
             header('Location: ' . APPURL . 'user/login');
         }
 
+    }
+
+    public function cartItem($MaDH, $MaSP, $type)
+    {
+        $order = $this->loadModel('order');
+        if ($type == "increase") {
+            $order->increaseItem($MaDH, $MaSP);
+        } else {         
+            $order->decreaseItem($MaDH, $MaSP);
+        }
+        header('Location: ' . APPURL . 'product/cart');
     }
 }

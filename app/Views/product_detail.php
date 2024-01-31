@@ -63,11 +63,11 @@
             </div>
             <!-- truyền ảnh vào đây, tự đổ ra -->
             <script>
-            const arrImg = ['<?= $pro['Anh'] ?>'];
-            const url = '<?= APPURL ?>public/upload/products/';
-            var imgSmall = "";
-            var imgMain = "";
-            var btn = `
+                const arrImg = ['<?= $pro['Anh'] ?>'];
+                const url = '<?= APPURL ?>public/upload/products/';
+                var imgSmall = "";
+                var imgMain = "";
+                var btn = `
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
                             data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -79,61 +79,73 @@
                             <span class="visually-hidden">Next</span>
                         </button>
                     `;
-            arrImg.map((img, i) => {
-                imgSmall += `
+                arrImg.map((img, i) => {
+                    imgSmall += `
                             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="${i}"
                             class="active" aria-current="true" aria-label="Slide ${i + 1}">
                                 <img src="${url + img}"
                                     class="d-block w-100" alt="...">
                             </button>
                         `;
-                if (i == 0) {
-                    imgMain += `
+                    if (i == 0) {
+                        imgMain += `
                                 <div class="carousel-item active">
                                     <img src="${url + img}" class="d-block w-100"
                                         alt="...">
                                 </div>
                             `;
-                } else {
-                    imgMain += `
+                    } else {
+                        imgMain += `
                                 <div class="carousel-item">
                                     <img src="${url + img}" class="d-block w-100"
                                         alt="...">
                                 </div>
                             `;
-                }
-            });
+                    }
+                });
 
-            document.querySelector('.carousel-indicators').innerHTML = imgSmall;
-            document.querySelector('.carousel-inner').innerHTML = imgMain + btn;
+                document.querySelector('.carousel-indicators').innerHTML = imgSmall;
+                document.querySelector('.carousel-inner').innerHTML = imgMain + btn;
             </script>
         </div>
-        <div class="col-6 d-flex flex-column">
+        <form method="post" action="<?= APPURL ?>/product/detail/<?= $pro['Id'] ?>" class="col-6 d-flex flex-column">
             <h1 class="h4">
                 <?= $pro['TenSanPham'] ?>
             </h1>
-            <p>Thương hiệu: <span class="text-primary"><?=$pro['ThuongHieu']?></span> | Tình trạng: <span class="text-primary"><?=$pro['SoLuong']>0?'Còn '.number_format($pro['SoLuong'],0,',','.').' sản phẩm':'Hết hàng'?></span>
+            <p>Thương hiệu: <span class="text-primary">
+                    <?= $pro['ThuongHieu'] ?>
+                </span> | Tình trạng: <span class="text-primary">
+                    <?= $pro['TonKho'] > 0 ? 'Còn ' . number_format($pro['TonKho'], 0, ',', '.') . ' sản phẩm' : 'Hết hàng' ?>
+                </span>
             </p>
             <div class="bg-light border-top border-bottom px-2 py-3 mb-3">
                 <div class="d-flex align-items-center">
                     <span class="h3 me-3 text-danger">
-                    <?= $pro['GiamGia']>0?number_format($pro['DonGia']*(1-$pro['GiamGia']/100), 0, ',', '.'):number_format($pro['DonGia'], 0, ',', '.') ?> ₫
+                        <?= $pro['GiamGia'] > 0 ? number_format($pro['DonGia'] * (1 - $pro['GiamGia'] / 100), 0, ',', '.') : number_format($pro['DonGia'], 0, ',', '.') ?>
+                        ₫
                     </span>
-                    <span class="text-decoration-line-through <?= $pro['GiamGia']>0?'':'d-none' ?>"><?= number_format($pro['DonGia'], 0, ',', '.')?> ₫</span>
+                    <span class="text-decoration-line-through <?= $pro['GiamGia'] > 0 ? '' : 'd-none' ?>">
+                        <?= number_format($pro['DonGia'], 0, ',', '.') ?> ₫
+                    </span>
                 </div>
-                <div class="<?= $pro['GiamGia']>0?'':'d-none' ?>">
-                    Tiết kiệm: <span class="text-primary"><?= number_format($pro['DonGia']*$pro['GiamGia']/100, 0, ',', '.')?> ₫</span>
+                <div class="<?= $pro['GiamGia'] > 0 ? '' : 'd-none' ?>">
+                    Tiết kiệm: <span class="text-primary">
+                        <?= number_format($pro['DonGia'] * $pro['GiamGia'] / 100, 0, ',', '.') ?> ₫
+                    </span>
                 </div>
             </div>
             <div class="bg-light border-start border-primary border-3 rounded overflow-hidden px-2 pt-2 mb-3">
                 <strong class="h4 me-3">Mô tả</strong>
-                <p class="my-2"><?=$pro['MoTa']?></p>
+                <p class="my-2">
+                    <?= $pro['MoTa'] ?>
+                </p>
             </div>
             <div class="px-2 pt-2 d-flex align-items-center gap-3 mb-3">
                 <label for="">Số Lượng</label>
                 <div class="buttons_added">
                     <input class="minus is-form" type="button" value="-">
-                    <input aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number" value="1">
+                    <input aria-label="quantity" class="input-qty" max="10" min="1" name="SoLuong" type="number"
+                        value="1">
                     <input class="plus is-form" type="button" value="+">
                 </div>
             </div>
@@ -145,21 +157,15 @@
             </a>
             <div class="row mb-3">
                 <div class="col-6">
-                    <a href="#" class="btn container-fluid btn-outline-primary text-decoration-none py-3">Thêm vào
-                        giỏ
-                        hàng</a>
+                    <button type="submit" class="btn container-fluid btn-outline-primary text-decoration-none py-3">Thêm vào giỏ hàng</button>
                 </div>
                 <div class="col-6">
-                    <a href="#" class="btn container-fluid btn-outline-primary text-decoration-none py-3">Thêm vào
-                        giỏ
-                        hàng</a>
+                    <a href="#" class="btn container-fluid btn-outline-primary text-decoration-none py-3">Thêm vào giỏ hàng</a>
                 </div>
             </div>
             <table class="fs-6 mb-3">
                 <tr>
-                    <td><span><i class="fa-solid fa-truck-fast text-primary"></i></span> Miễn phí vận
-                        chuyển tại
-                        TP.HCM</td>
+                    <td><span><i class="fa-solid fa-truck-fast text-primary"></i></span> Miễn phí vận chuyển tại TP.HCM</td>
                     <td><span><i class="fa-solid fa-medal text-primary"></i></span> Bảo hành chính hãng toàn quốc
                     </td>
                 </tr>
@@ -170,7 +176,7 @@
                     </td>
                 </tr>
             </table>
-        </div>
+        </form>
     </section>
 
 </div>
@@ -183,7 +189,7 @@
             <h3>Mô tả sản phẩm</h3>
             <hr>
             <pre class="text-break" style="White-space:pre-wrap; word-wrap:break-word;">
-                <?=$pro['MoTaCT']?>
+                <?= $pro['MoTaCT'] ?>
             </pre>
         </div>
         <div class="col-4 d-none">

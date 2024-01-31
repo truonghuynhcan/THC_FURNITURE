@@ -28,7 +28,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($cart as $sp): ?>
+                        <?php
+                        $countPro = 0;
+                        $totalPro = 0;
+                        // dùng API tính tiền ship
+                        $shippingFee = 25000;
+                        foreach ($cart as $sp):
+                            ?>
                             <tr>
                                 <td><img src="<?= APPURL ?>public/upload/products/<?= $sp['AnhSP'] ?>" alt=""
                                         style="height: 60px;"></td>
@@ -39,15 +45,24 @@
                                     <?= number_format($sp['DonGia'], 0, ',', '.') ?> ₫
                                 </td>
                                 <td class="text-center">
+                                    <a href="<?= APPURL ?>product/cartItem/<?= $sp['MaDH'] ?>/<?= $sp['Id'] ?>/decrease"
+                                        class="btn btn-sm <?= ($sp['SoLuong'] == 1) ? 'disabled btn-outline-secondary' : 'btn-outline-primary' ?>">-</a>
                                     <?= $sp['SoLuong'] ?>
+                                    <a href="<?= APPURL ?>product/cartItem/<?= $sp['MaDH'] ?>/<?= $sp['Id'] ?>/increase"
+                                        class="btn btn-sm <?= ($sp['SoLuong'] == $sp['TonKho']) ? 'disabled btn-outline-secondary' : 'btn-outline-primary ' ?>">+</a>
+
                                 </td>
                                 <td class="text-primary text-end">
-                                    <?= number_format($sp['ThanhTien'], 0, ',', '.') ?> ₫
+                                    <?= number_format($sp['SoLuong'] * $sp['DonGia'], 0, ',', '.') ?> ₫
                                 </td>
                                 <td class="text-center"><a href="<?= APPURL ?>product/remoteProduct/<?= $sp['Id'] ?>"
                                         class="btn btn-primary">Xóa</a></td>
                             </tr>
-                        <?php endforeach; ?>
+                            <?php
+                            $countPro += $sp['SoLuong'];
+                            $totalPro += $sp['SoLuong'] * $sp['DonGia'];
+                        endforeach;
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -55,21 +70,31 @@
                 <div class="card" style="width: 18rem;">
                     <div class="card-body">
                         <h5 class="card-title">Đơn hàng</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">(3 sản phẩm)</h6>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">(
+                            <?= number_format($countPro, 0, ',', '.') ?> sản phẩm)
+                        </h6>
                         <div class="d-flex justify-content-between">
-                            <p class="card-text">Tổng đơn</p>
-                            <p class="card-text">300.000 VND</p>
+                            <p class="card-text">Tổng sản phẩm</p>
+                            <p class="card-text">
+                                <?= number_format($totalPro, 0, ',', '.') ?> VND
+                            </p>
                         </div>
                         <div class="d-flex justify-content-between">
+                            <p class="card-text">Phí vận chuyển</p>
+                            <p class="card-text">
+                                <?= number_format($shippingFee, 0, ',', '.') ?> VND
+                            </p>
+                        </div>
+                        <div class="d-flex justify-content-between d-none <?= ($sp['GiaGiam']!==null)?'':'d-none' ?>">
                             <p class="card-text">Giảm giá</p>
-                            <p class="card-text">- 19.000 VND</p>
+                            <p class="card-text">- <?= number_format($sp['GiaGiam'], 0, ',', '.') ?> VND</p>
                         </div>
-                        <div class="d-flex mb-3 justify-content-between">
+                        <div class="d-flex mb-3 justify-content-between d-none">
                             <form action="<?= APPURL ?>order/addVoucher" method="post">
                                 <label class="card-text" for="voucher">Mã Giảm Giá</label>
-                                <input class="form-control" type="text" name="voucher" id="voucher">
-                                <input class="form-control" hidden type="text" name="MaDH" value="<?= $sp['MaDH'] ?>">
-                                <button type="submit" name="addVoucher" class="btn border-1">Áp dụng</button>
+                                <input class="form-control" type="text" name="voucherCode" id="voucher">
+                                <input type="hidden" name="MaDH" value="<?= $sp['MaDH'] ?>">
+                                <button type="submit" class="btn border-1">Áp dụng</button>
                             </form>
                         </div>
                         <a href="<?= APPURL ?>product/checkout" class="card-link btn btn-primary container-fluid">Thanh

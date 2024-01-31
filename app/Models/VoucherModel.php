@@ -1,7 +1,7 @@
 <?php
-class Voucher extends CoreModel
+class VoucherModel extends CoreModel
 {
-    public function chechVoucher($MaGG)
+    public function checkVoucher($MaGG)
     {
         //voucher có tồn tại
         $voucher = $this->db->pdo_query_one("SELECT * FROM magiamgia WHERE MaGG = ?", $MaGG);
@@ -10,15 +10,15 @@ class Voucher extends CoreModel
         }
 
         // check còn lượt sử dụng
-        if ($voucher['SoLuong'] <= 0)
+        if ($voucher['SoLuong'] <= 0) {
             return false;
-
+        }
         // voucher còn hạn
         $now = new DateTime();
-        if (!(new DateTime($voucher['NgayBatDau']) <= $now || $now <= new DateTime($voucher['NgayKetThuc'])))
+        if (!(new DateTime($voucher['NgayBatDau']) <= $now || $now <= new DateTime($voucher['NgayKetThuc']))) {
             return false;
+        }
 
-
-
+        return true;
     }
 }

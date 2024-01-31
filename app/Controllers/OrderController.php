@@ -1,5 +1,5 @@
 <?php
-use App\Controller\CoreController;
+use App\Controllers\CoreController;
 
 class OrderController extends CoreController
 {
@@ -8,31 +8,24 @@ class OrderController extends CoreController
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $order = $this->loadModel('Order');
             $voucher = $this->loadModel('Voucher');
-            // kiểm tra voucher hợp lệ
 
             # lấy voucher, người dùng
-            $voucherCode = $_POST['voucher'];
-            $IdUser = $_SESSION['user']['Id'];
+            $voucherCode = $_POST['voucherCode'];
+            $MaDH = $_POST['MaDH'];
+            
+            // kiểm tra voucher hợp lệ
+            $checkVoucher = $voucher->checkVoucher($voucherCode);
 
-            # truyền vào model check
-            try {
-                $isValidVoucher = $order->isValidVoucher($voucherCode);
-            } catch (\Throwable $th) {
-                showNoti("Mã giảm giá không hợp lệ hoặc đơn hàng không đủ điều kiện sử dụng", "warning");
+            if($checkVoucher){
+                $order->addVoucher($MaDH, $voucherCode);        
+            }else{
+                showNoti("Mã giảm giá không hợp lệ", "warning");
             }
-
-            // nếu hợp lệ -> add vào order
-            if (isset($isValidVoucher)) {
-                # code...
-                print('hi');
-
-            } else {
-                # code...
-                echo "Lỗi: Mã giảm giá không hợp lệ.";
-            }
-
-
+            //tính số tiền được giảm dựa trên voucher
+            header('Location:'.APPURL.'product/cart');
             // Nếu ko hợp lệ -> ko add và thông báo
         }
     }
+
+   
 }

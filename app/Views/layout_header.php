@@ -81,7 +81,7 @@
                                     </ul>
                                 <?php elseif($_SESSION['user']['Quyen']===1): ?>
                                     <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item" href="<?= APPURL ?>admin/dashboard">Admin</a></li>
+                                        <li><a class="dropdown-item" href="<?= APPURL ?>ad_dashboard/index">Admin</a></li>
                                         <li><a class="dropdown-item" href="<?= APPURL ?>user/info">Tài khoản</a></li>
                                         <li><a class="dropdown-item" href="<?= APPURL ?>user/login">Quản lý đơn hàng</a>
                                         </li>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th1 26, 2024 lúc 12:43 PM
--- Phiên bản máy phục vụ: 10.4.28-MariaDB
--- Phiên bản PHP: 8.2.4
+-- Host: localhost:3306
+-- Generation Time: Jan 29, 2024 at 01:26 AM
+-- Server version: 8.0.30
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,73 +18,73 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `xth_php2`
+-- Database: `xth_php2`
 --
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `anhsp`
+-- Table structure for table `anhsp`
 --
 
 CREATE TABLE `anhsp` (
-  `Id` int(5) NOT NULL,
-  `IdSP` int(5) NOT NULL,
-  `url` varchar(255) NOT NULL
+  `Id` int NOT NULL,
+  `IdSP` int NOT NULL,
+  `url` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `chitietdonhang`
+-- Table structure for table `chitietdonhang`
 --
 
 CREATE TABLE `chitietdonhang` (
-  `MaDH` int(5) NOT NULL,
-  `MaSP` int(5) NOT NULL,
-  `SoLuong` int(11) NOT NULL DEFAULT 1,
-  `DonGia` int(11) NOT NULL DEFAULT 0
+  `MaDH` int NOT NULL,
+  `MaSP` int NOT NULL,
+  `SoLuong` int NOT NULL DEFAULT '1',
+  `DonGia` int NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `danhmuc`
+-- Table structure for table `danhmuc`
 --
 
 CREATE TABLE `danhmuc` (
-  `Id` int(5) NOT NULL,
-  `Ten` varchar(255) NOT NULL
+  `Id` int NOT NULL,
+  `Ten` varchar(255) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `donhang`
+-- Table structure for table `donhang`
 --
 
 CREATE TABLE `donhang` (
-  `Id` int(5) NOT NULL,
-  `NgayDat` datetime NOT NULL DEFAULT current_timestamp(),
-  `SoLuongSP` int(11) NOT NULL DEFAULT 0,
-  `TongTien` int(11) NOT NULL DEFAULT 0,
-  `IdGG` varchar(50) DEFAULT NULL,
-  `TrangThai` set('gio-hang','cho-xac-nhan','dang-chuan-bi','dang-giao-hang','giao-thanh-cong','huy-don') NOT NULL DEFAULT 'gio-hang',
-  `MaTK` int(5) NOT NULL
+  `Id` int NOT NULL,
+  `NgayDat` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `SoLuongSP` int NOT NULL DEFAULT '0',
+  `TongTien` int NOT NULL DEFAULT '0',
+  `MaGG` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `TrangThai` set('gio-hang','cho-xac-nhan','dang-chuan-bi','dang-giao-hang','giao-thanh-cong','huy-don') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'gio-hang',
+  `MaTK` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `magiamgia`
+-- Table structure for table `magiamgia`
 --
 
 CREATE TABLE `magiamgia` (
-  `MaGG` varchar(50) NOT NULL,
-  `GiaGiam` int(11) DEFAULT NULL,
-  `TLGiam` int(2) DEFAULT NULL,
-  `GiamToiDa` int(11) DEFAULT NULL,
-  `SoLuong` int(11) NOT NULL DEFAULT 1,
+  `MaGG` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `GiaGiam` int DEFAULT NULL,
+  `TLGiam` int DEFAULT NULL,
+  `GiamToiDa` int DEFAULT NULL,
+  `SoLuong` int NOT NULL DEFAULT '1',
   `NgayBatDau` datetime NOT NULL,
   `NgayKetThuc` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -92,154 +92,154 @@ CREATE TABLE `magiamgia` (
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `sanpham`
+-- Table structure for table `sanpham`
 --
 
 CREATE TABLE `sanpham` (
-  `Id` int(5) NOT NULL,
-  `IdDM` int(5) NOT NULL,
-  `TenSanPham` varchar(255) NOT NULL,
-  `DonGia` int(11) NOT NULL,
-  `GiamGia` int(3) DEFAULT NULL COMMENT 'giá trị %',
-  `Anh` varchar(255) NOT NULL,
-  `SoLuong` int(5) NOT NULL,
-  `ThuongHieu` varchar(255) DEFAULT NULL,
-  `KichThuoc` varchar(255) DEFAULT NULL,
-  `ChatLieu` varchar(255) NOT NULL,
-  `MauSac` varchar(255) NOT NULL,
-  `MoTa` text DEFAULT NULL,
-  `MoTaCT` longtext DEFAULT NULL,
-  `NgayNhap` date DEFAULT current_timestamp(),
-  `TrangThai` int(1) DEFAULT 1 COMMENT 'ẩn(0), hiện(1)'
+  `Id` int NOT NULL,
+  `IdDM` int NOT NULL,
+  `TenSanPham` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `DonGia` int NOT NULL,
+  `GiamGia` int DEFAULT NULL COMMENT 'giá trị %',
+  `Anh` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `TonKho` int NOT NULL,
+  `ThuongHieu` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `KichThuoc` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `ChatLieu` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `MauSac` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `MoTa` text COLLATE utf8mb4_general_ci,
+  `MoTaCT` longtext COLLATE utf8mb4_general_ci,
+  `NgayNhap` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `TrangThai` int DEFAULT '1' COMMENT 'ẩn(0), hiện(1)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `taikhoan`
+-- Table structure for table `taikhoan`
 --
 
 CREATE TABLE `taikhoan` (
-  `Id` int(5) NOT NULL,
-  `HoVaTen` varchar(50) NOT NULL,
-  `SDT` varchar(10) DEFAULT NULL,
-  `DiaChi` varchar(255) DEFAULT NULL,
-  `Email` varchar(255) NOT NULL,
-  `MatKhau` varchar(50) NOT NULL,
-  `Quyen` int(1) NOT NULL DEFAULT 0 COMMENT 'site(0), admin(1)'
+  `Id` int NOT NULL,
+  `HoVaTen` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `SDT` varchar(10) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `DiaChi` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `Email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `MatKhau` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `Quyen` int NOT NULL DEFAULT '0' COMMENT 'site(0), admin(1)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Chỉ mục cho các bảng đã đổ
+-- Indexes for dumped tables
 --
 
 --
--- Chỉ mục cho bảng `anhsp`
+-- Indexes for table `anhsp`
 --
 ALTER TABLE `anhsp`
   ADD PRIMARY KEY (`Id`),
   ADD KEY `fk_anhsp_sp` (`IdSP`);
 
 --
--- Chỉ mục cho bảng `chitietdonhang`
+-- Indexes for table `chitietdonhang`
 --
 ALTER TABLE `chitietdonhang`
   ADD PRIMARY KEY (`MaDH`,`MaSP`),
   ADD KEY `fk_ctdh_sp` (`MaSP`);
 
 --
--- Chỉ mục cho bảng `danhmuc`
+-- Indexes for table `danhmuc`
 --
 ALTER TABLE `danhmuc`
   ADD PRIMARY KEY (`Id`);
 
 --
--- Chỉ mục cho bảng `donhang`
+-- Indexes for table `donhang`
 --
 ALTER TABLE `donhang`
   ADD PRIMARY KEY (`Id`),
   ADD KEY `fk_donhang_taikhoan` (`MaTK`),
-  ADD KEY `fk_donhang_magiamgia` (`IdGG`);
+  ADD KEY `fk_donhang_magiamgia` (`MaGG`);
 
 --
--- Chỉ mục cho bảng `magiamgia`
+-- Indexes for table `magiamgia`
 --
 ALTER TABLE `magiamgia`
   ADD PRIMARY KEY (`MaGG`);
 
 --
--- Chỉ mục cho bảng `sanpham`
+-- Indexes for table `sanpham`
 --
 ALTER TABLE `sanpham`
   ADD PRIMARY KEY (`Id`),
   ADD KEY `fk_sp_dm` (`IdDM`);
 
 --
--- Chỉ mục cho bảng `taikhoan`
+-- Indexes for table `taikhoan`
 --
 ALTER TABLE `taikhoan`
   ADD PRIMARY KEY (`Id`);
 
 --
--- AUTO_INCREMENT cho các bảng đã đổ
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT cho bảng `anhsp`
+-- AUTO_INCREMENT for table `anhsp`
 --
 ALTER TABLE `anhsp`
-  MODIFY `Id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `danhmuc`
+-- AUTO_INCREMENT for table `danhmuc`
 --
 ALTER TABLE `danhmuc`
-  MODIFY `Id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `donhang`
+-- AUTO_INCREMENT for table `donhang`
 --
 ALTER TABLE `donhang`
-  MODIFY `Id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `sanpham`
+-- AUTO_INCREMENT for table `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `Id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT cho bảng `taikhoan`
+-- AUTO_INCREMENT for table `taikhoan`
 --
 ALTER TABLE `taikhoan`
-  MODIFY `Id` int(5) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int NOT NULL AUTO_INCREMENT;
 
 --
--- Các ràng buộc cho các bảng đã đổ
+-- Constraints for dumped tables
 --
 
 --
--- Các ràng buộc cho bảng `anhsp`
+-- Constraints for table `anhsp`
 --
 ALTER TABLE `anhsp`
   ADD CONSTRAINT `fk_anhsp_sp` FOREIGN KEY (`IdSP`) REFERENCES `sanpham` (`Id`) ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `chitietdonhang`
+-- Constraints for table `chitietdonhang`
 --
 ALTER TABLE `chitietdonhang`
   ADD CONSTRAINT `fk_ctdh_dh` FOREIGN KEY (`MaDH`) REFERENCES `donhang` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_ctdh_sp` FOREIGN KEY (`MaSP`) REFERENCES `sanpham` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `donhang`
+-- Constraints for table `donhang`
 --
 ALTER TABLE `donhang`
-  ADD CONSTRAINT `fk_donhang_magiamgia` FOREIGN KEY (`IdGG`) REFERENCES `magiamgia` (`MaGG`),
+  ADD CONSTRAINT `fk_donhang_magiamgia` FOREIGN KEY (`MaGG`) REFERENCES `magiamgia` (`MaGG`),
   ADD CONSTRAINT `fk_donhang_taikhoan` FOREIGN KEY (`MaTK`) REFERENCES `taikhoan` (`Id`) ON UPDATE CASCADE;
 
 --
--- Các ràng buộc cho bảng `sanpham`
+-- Constraints for table `sanpham`
 --
 ALTER TABLE `sanpham`
   ADD CONSTRAINT `fk_sp_dm` FOREIGN KEY (`IdDM`) REFERENCES `danhmuc` (`Id`) ON UPDATE CASCADE;

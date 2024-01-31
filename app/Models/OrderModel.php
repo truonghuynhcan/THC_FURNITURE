@@ -1,10 +1,33 @@
 <?php
 class OrderModel extends CoreModel
 {
+    // tăng giảm số lượng sp
+    public function increaseItem($MaDH, $MaSP)
+    {
+        return $this->db->pdo_execute("UPDATE chitietdonhang 
+        SET SoLuong = SoLuong+1
+        WHERE MaSP =? AND MaDH =? ", $MaSP, $MaDH);
+    }
+    public function decreaseItem($MaDH, $MaSP)
+    {
+        return $this->db->pdo_execute("UPDATE chitietdonhang 
+        SET SoLuong = SoLuong-1
+        WHERE MaSP =? AND MaDH =? ", $MaSP, $MaDH);
+    }
+
+    
+    // sử lý voucher
+    public function addVoucher($MaDH, $voucher)
+    {
+        return $this->db->pdo_execute("UPDATE donhang SET MaGG =? WHERE Id =?", $voucher, $MaDH);
+    }
     public function isValidVoucher($voucher)
     {
         return $this->db->pdo_query_one("SELECT * FROM magiamgia WHERE MaGG =?", $voucher);
     }
+
+
+
     public function getProductInCart()
     {
         return $this->db->pdo_query("SELECT * FROM chitietdonhang ctdh

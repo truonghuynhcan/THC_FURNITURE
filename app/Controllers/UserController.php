@@ -1,5 +1,5 @@
 <?php
-use App\Controller\CoreController;
+use App\Controllers\CoreController;
 
 class UserController extends CoreController
 {

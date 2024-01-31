@@ -14,8 +14,8 @@ class CartModel extends CoreModel
         sp.Anh AS AnhSP,
         sp.TenSanPham AS TenSP,
         sp.DonGia,
+        sp.TonKho,
         ctdh.SoLuong,
-        sp.DonGia * ctdh.SoLuong AS ThanhTien,
         dh.Id as MaDH
     FROM 
         donhang dh
@@ -25,6 +25,7 @@ class CartModel extends CoreModel
         sanpham sp ON ctdh.MaSP = sp.Id
     JOIN 
         taikhoan tk ON dh.MaTK = tk.Id
+
     WHERE 
         tk.Id = ?", $IdUser);
     }
