@@ -9,24 +9,7 @@ class ProductController extends CoreController
         $data['pro'] = $oder->getOneProductById($IdPro);
         $this->loadView('product_detail', $data);
     }
-    public function checkout()
-    {
-        if (isset($_SESSION['user'])) {
-            # ĐÃ đăng nhập
-            //load model
-            $oder = $this->loadModel("cart");
-            //lấy danh sách
-            $cart = $oder->getProductInCart($_SESSION['user']['Id']);
-            $data['cart'] = $cart;
-        } else {
-            # CHƯA đăng nhập
-            //lấy danh sách từ session
-            $cart = $_SESSION['cart'];
-            $data['cart'] = $cart;
-        }
-
-        $this->loadView('product_checkout', $data);
-    }
+    
     public function remoteProduct($IdSP)
     {
         $oder = $this->loadModel("cart");

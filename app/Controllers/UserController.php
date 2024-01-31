@@ -3,6 +3,7 @@ use App\Controllers\CoreController;
 
 class UserController extends CoreController
 {
+
     public function cart()
     {
         $this->loadView('user_cart');

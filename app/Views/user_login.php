@@ -12,7 +12,7 @@
             </div>
             <p class="fs-5 text-center">ĐĂNG NHẬP</p>
             <?php checkNoti(); ?>
-            <form method="POST" action="" class="login">
+            <form method="POST" action="<?=APPURL?>user/login" class="login">
                 <div class="form-floating mb-3 border-bottom border-primary">
                     <input type="email" name="email" class="form-control" id="floatingInput"
                         placeholder="name@example.com">

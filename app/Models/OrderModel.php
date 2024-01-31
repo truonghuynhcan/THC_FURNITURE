@@ -1,6 +1,18 @@
 <?php
 class OrderModel extends CoreModel
 {
+    public function orderById($SoLuongSP, $TongTien, $NguoiNhan, $SDT, $DiaChiGiaoHang, $MaTK)
+    {
+        return $this->db->pdo_execute("UPDATE `donhang` 
+        SET 
+            SoLuongSP = ?, 
+            TongTien = ?, 
+            TrangThai = 'cho-xac-nhan', 
+            NguoiNhan = ?,
+            SDT = ?,
+            DiaChiGiaoHang = ?
+        WHERE MaTK =?;", $SoLuongSP, $TongTien, $NguoiNhan, $SDT, $DiaChiGiaoHang, $MaTK);
+    }
     // tăng giảm số lượng sp
     public function increaseItem($MaDH, $MaSP)
     {
@@ -15,7 +27,7 @@ class OrderModel extends CoreModel
         WHERE MaSP =? AND MaDH =? ", $MaSP, $MaDH);
     }
 
-    
+
     // sử lý voucher
     public function addVoucher($MaDH, $voucher)
     {

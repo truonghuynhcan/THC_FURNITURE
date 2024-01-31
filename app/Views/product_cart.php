@@ -97,7 +97,7 @@
                                 <button type="submit" class="btn border-1">Áp dụng</button>
                             </form>
                         </div>
-                        <a href="<?= APPURL ?>product/checkout" class="card-link btn btn-primary container-fluid">Thanh
+                        <a href="<?= APPURL ?>page/checkout" class="card-link btn btn-primary container-fluid">Thanh
                             toán</a>
                     </div>
                 </div>
